@@ -26,4 +26,8 @@ app.get("/ping", async (req, res) => {
     }
 });
 
+const filmsRoutes = require("./routes/films");
+app.use("/films", filmsRoutes);
+
+
 module.exports = app;
