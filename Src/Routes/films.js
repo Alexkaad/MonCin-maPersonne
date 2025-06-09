@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getPopularFilms } = require("../services/TmbdServices");
+const { getPopularFilms } = require("../Services/TmbdServices");
 
 router.get("/popular", async (req, res) => {
     try {
