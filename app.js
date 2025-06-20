@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: "./.env.local"});
 const express = require("express");
 const { Pool } = require("pg");
 
@@ -26,8 +26,8 @@ app.get("/ping", async (req, res) => {
     }
 });
 
-const filmsRoutes = require("./Src/Routes/films");
-app.use("/films", filmsRoutes);
+const filmsRoutes = require("./Src/Routes/filmRoutes");
+app.use("/api/films", filmsRoutes);
 
 
 module.exports = app;
