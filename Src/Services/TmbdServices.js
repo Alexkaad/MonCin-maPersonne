@@ -10,6 +10,15 @@ async function getPopularFilms() {
     return response.data.results.map((filmData) => new Film(filmData));
 }
 
+
+async function getFilmById(id) {
+    const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=fr-FR`;
+    const response = await axios.get(url);
+    return new Film(response.data);
+}
+
+
 module.exports = {
     getPopularFilms,
+    getFilmById
 };
