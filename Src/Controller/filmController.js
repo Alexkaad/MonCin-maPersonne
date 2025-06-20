@@ -2,25 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
+const Films = require("../Dtos/Films");
 const { getPopularFilms } = require("../Services/TmbdServices");
 
-const {getFilmById } = require("../Services/TmbdServices");
+const {FilmById } = require("../Services/TmbdServices");
 
-
-
-router.get("/:id", async (req, res) => {
-    const id = req.params.id;
-    console.log(id);
-    try {
-
-        const film = await getFilmById(id);
-        console.log(film);
-        res.json(film);
-    }catch (error) {
-        console.log('Erreur TMBD :', error.message);
-        res.status(500).json({error: 'Erreur lors de la récuperation des films'})
-    }
-});
 
 router.get("/popular", async (req, res) => {
     const page = Math.min(parseInt(req.query.page)|| 1,500) ;
@@ -37,8 +23,26 @@ router.get("/popular", async (req, res) => {
 });
 
 
+const getFilmById = async (req, res) => {
+
+    const id = req.params.id;
+    console.log('ID du film demandé ',id);
+
+    try {
+        const films = await FilmById(id);
+        console.log('Film récupéré:', films);
+        res.json(films);
+    } catch (error) {
+        console.log('Erreur TMDB:', error.message);
+        res.status(500).json({
+            error: 'Erreur lors de la récupération des films'
+        });
+    }
+
+}
 
 
+module.exports = {
 
-
-module.exports = router;
+    getMovieById: getFilmById,
+};
