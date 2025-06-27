@@ -1,7 +1,8 @@
 require("dotenv").config({ path: "./.env.local"});
+
 const express = require("express");
 const { Pool } = require("pg");
-
+const cors = require("cors");
 const app = express();
 
 const pool = new Pool({
@@ -10,7 +11,7 @@ const pool = new Pool({
 });
 
 app.use(express.json());
-
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("Bienvenue dans l'API !");
