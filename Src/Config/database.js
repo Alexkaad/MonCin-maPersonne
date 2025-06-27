@@ -1,8 +1,6 @@
 require('dotenv').config({path:'./.env.local'});
 const {Sequelize} = require('sequelize');
 
-
-
 /*
 Vérification des variables d'environnement
 */
