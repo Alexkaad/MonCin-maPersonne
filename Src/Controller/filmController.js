@@ -1,8 +1,7 @@
-const express = require("express");
 
-const router = express.Router();
 
-const { getPopularFilms, upcomingMovies, NowPlaying} = require("../Services/TmbdServices");
+
+const { getPopularFilms, upcomingMovies, NowPlaying, getCreditByMovie} = require("../Services/TmbdServices");
 
 const {FilmById } = require("../Services/TmbdServices");
 
@@ -72,6 +71,22 @@ const getFilmById = async (req, res) => {
 
 }
 
+const getCredit = async (req, res) => {
+
+    const id = req.params.id;
+
+    try {
+
+        const credits = await getCreditByMovie(id);
+        console.log('credits recuperé :', credits);
+        res.json(credits);
+    }catch (error) {
+
+        console.error('Erreur TMDB:', error.message);
+        res.status(500).json({error: 'Erreur lors de la recuperation de credits'});
+    }
+}
+
 
 module.exports = {
 
@@ -79,4 +94,5 @@ module.exports = {
     upcoming,
     popular,
     getIndoor,
+    getCredit,
 };

@@ -54,9 +54,18 @@ async function FilmById(id) {
     return new Film(response.data);
 }
 
+
+async function getCreditByMovie(id) {
+
+    const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=fr-FR`;
+    const response = await axios.get(url);
+    return response.data;
+}
+
 module.exports = {
     getPopularFilms,
      FilmById,
    upcomingMovies,
-    NowPlaying
+    NowPlaying,
+    getCreditByMovie,
 };
