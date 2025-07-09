@@ -51,20 +51,21 @@ const NowPlaying = async (page=1) => {
 async function FilmById(id) {
     const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=fr-FR`;
     const response = await axios.get(url);
-    return new Film(response.data);
+    return response.data;
 }
 
 
 async function getCreditByMovie(id) {
 
-    const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=fr-FR`;
+    const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
     const response = await axios.get(url);
     return response.data;
 }
 
 module.exports = {
     getPopularFilms,
-     FilmById,
+
+    FilmById,
    upcomingMovies,
     NowPlaying,
     getCreditByMovie,
