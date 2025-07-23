@@ -1,20 +1,23 @@
-# Utilise une image officielle de Node.js
+# Étape 1 : Image de base
 FROM node:20
 
-# Crée le dossier de travail dans le conteneur
-WORKDIR /app
+# Étape 2 : Dossier de travail dans le conteneur
+WORKDIR /server
 
-# Copie les fichiers nécessaires
+# Étape 3 : Copier les fichiers package.json
 COPY package*.json ./
 
-# Installe les dépendances
+# Étape 4 : Installer les dépendances
 RUN npm install
 
-# Copie tout le reste du code (src, app.js, etc.)
+# Étape 5 : Copier tous les fichiers du projet
 COPY . .
 
-# Expose le port que ton serveur utilise (ex: 3000)
+# Étape 6 : Compiler le TypeScript
+RUN npx tsc
+
+# Étape 7 : Exposer le port
 EXPOSE 3000
 
-# Commande pour démarrer ton serveur
-CMD ["node", "index.js"]
+# Étape 8 : Lancer le fichier compilé
+CMD ["node", "dist/app.js"]

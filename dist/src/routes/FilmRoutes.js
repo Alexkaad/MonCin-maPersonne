@@ -1,0 +1,12 @@
+"use strict";
+const express = require('express');
+const router = express.Router();
+const { getFilmById, upcoming, popular, getIndoor, getCredit, getTrailer, getRecommandation } = require('../controller/FilmController');
+router.get(/indoor/, getIndoor);
+router.get(/upcoming/, upcoming);
+router.get(/popular/, popular);
+router.get('/:id/credits', getCredit);
+router.get('/:id/videos', getTrailer);
+router.get('/:id/recommendations', getRecommandation);
+router.get('/:id', getFilmById);
+module.exports = router;
