@@ -1,23 +1,26 @@
 require("dotenv").config({ path: "./.env.local"});
 
-const express = require("express");
+import express, { Request, Response } from "express";
 const { Pool } = require("pg");
 const cors = require("cors");
-const app = express();
+const server = express();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: false,
 });
 
-app.use(express.json());
-app.use(cors());
+server.use(express.json());
+server.use(cors());
 
-app.get("/", (req, res) => {
+// OU avec une configuration plus spécifique
+
+
+server.get("/", (req: Request, res: Response) => {
     res.send("Bienvenue dans l'API !");
 });
 
-app.get("/ping", async (req, res) => {
+server.get("/ping", async (req: Request, res : Response) => {
     try {
         const result = await pool.query("SELECT 'Connexion OK' AS message");
         res.send(result.rows[0].message);
@@ -27,8 +30,8 @@ app.get("/ping", async (req, res) => {
     }
 });
 
-const filmsRoutes = require("./Src/Routes/filmRoutes");
-app.use("/api/films", filmsRoutes);
+const filmsRoutes = require("./src/routes/FilmRoutes");
+server.use("/api/films", filmsRoutes);
 
 
-module.exports = app;
+module.exports = server;
