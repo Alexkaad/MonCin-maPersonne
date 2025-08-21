@@ -1,4 +1,4 @@
-export interface Acting {
+export interface CastMember {
 
     adult: boolean,
     gender: number,
@@ -12,4 +12,13 @@ export interface Acting {
     character: string,
     credit_id:string,
     order: number
+}
+
+export interface MapCastMember {
+
+    id: number,
+    character: string,
+    profile_path: string | null,
+    order: number,
+    name: string,
 }

@@ -11,11 +11,6 @@ const API_KEY = process.env.TMbd_api_key;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 
-
-
-
-
-
 const getPopularFilms = async (page=1) => {
     const response = await axios.get(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}&region=fr&language=fr-FR`);
     return {
@@ -26,8 +21,6 @@ const getPopularFilms = async (page=1) => {
         currentPage : response.data.page,
     }
 }
-
-
 
 //* cette methode renvoie une liste des films à venir
 
@@ -58,7 +51,6 @@ export async function upcomingMovies(page = 1): Promise<ResponsePage> {
    }
 }
 
-
 export async function NowPlaying(page = 1): Promise<ResponsePage> {
     const url = `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=fr-FR&page=
     ${page}&region=fr`;
@@ -82,11 +74,6 @@ export async function NowPlaying(page = 1): Promise<ResponsePage> {
         };
     }
 }
-
-
-
-
-
 
 export async function FilmById(id: number) {
 
@@ -137,6 +124,20 @@ async function getRecommendationMovie(id:number){
     return response.data;
 }
 
+
+export async function getPersonSingle(id:number) {
+
+    try {
+
+        const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=fr-FR`;
+        const response = await axios.get(url);
+        return response.data;
+    }catch (error) {
+
+        throw error;
+    }
+}
+
 module.exports = {
     getPopularFilms,
     FilmById,
@@ -145,4 +146,5 @@ module.exports = {
     getCreditByMovie,
     getTrailerMovie,
     getRecommendationMovie,
+    getPersonSingle
 };

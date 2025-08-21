@@ -1,7 +1,7 @@
-import {Film, Genre} from "./entites/BaseMovie";
+import {Film} from "../entites/BaseMovie";
 
 
-export function mapPopularFilms(data: any): {
+export function mapFilms(data: any): {
     results: Film[];
     total_pages: number;
     total_results: number;

@@ -33,5 +33,7 @@ server.get("/ping", async (req: Request, res : Response) => {
 const filmsRoutes = require("./src/routes/FilmRoutes");
 server.use("/api/films", filmsRoutes);
 
+const personRoutes = require('./src/routes/PersonRoutes');
+server.use("/api/persons", personRoutes);
 
 module.exports = server;

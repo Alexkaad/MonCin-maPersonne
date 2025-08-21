@@ -1,4 +1,5 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+
 const { Sequelize } = require('sequelize');
 
 console.log('\n=== VÉRIFICATION DES VARIABLES D\'ENVIRONNEMENT ===\n');
@@ -29,7 +30,7 @@ async function testConnection() {
     try {
         await sequelize.authenticate();
         console.log('✅ Connexion à la base de données réussie !');
-    } catch (error) {
+    } catch (error: any) {
         console.error('❌ Impossible de se connecter à la base de données:', error.message);
     } finally {
         await sequelize.close();
