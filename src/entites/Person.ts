@@ -5,7 +5,7 @@ export  interface Person {
     biography : string,
     birthday : string,
     deathday : string,
-    gender : number,
+    gender : string,
     homepage : string,
     id : number,
     imdb_id : string,

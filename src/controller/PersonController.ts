@@ -12,6 +12,7 @@ export const getPersonById = async (req: Request, res: Response) => {
 
         const rawData = await getPersonSingle(id);
         const person : Person = mapePerson(rawData);
+        console.log( 'voici le resultat person demandé :',person);
         res.json(person);
     }catch (error: any) {
         console.error('Erreur TMBD:', error.message);

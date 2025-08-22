@@ -129,7 +129,7 @@ export async function getPersonSingle(id:number) {
 
     try {
 
-        const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=fr-FR`;
+        const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
         const response = await axios.get(url);
         return response.data;
     }catch (error) {

@@ -5,7 +5,7 @@ export  function mapePerson(raw : any ): Person {
     return {
 
         adult : raw.adult,
-        gender: raw.gender,
+        gender: getGender(raw.gender),
         name: raw.name,
         also_known_as : raw.also_known_as,
         deathday:raw.deathday,
@@ -20,3 +20,7 @@ export  function mapePerson(raw : any ): Person {
 
     }
 }
+
+const getGender = (gender: number): string => {
+    return gender === 1 ? 'Femme' : 'Homme';
+};
