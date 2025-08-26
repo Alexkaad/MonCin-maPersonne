@@ -1,8 +1,8 @@
 import {Person} from "../entites/Person";
 
-export  function mapePerson(raw : any ): Person {
+export async function  mapePerson(raw : any , traduireTexte?: (text:string)=>Promise<string>):Promise<Person> {
 
-    return {
+    const person : Person = {
 
         adult : raw.adult,
         gender: getGender(raw.gender),
@@ -19,6 +19,13 @@ export  function mapePerson(raw : any ): Person {
         profile_path : raw.profile_path,
 
     }
+
+    if (traduireTexte && person.biography) {
+        person.biography = await traduireTexte(person.biography);
+    }
+
+  return person;
+
 }
 
 const getGender = (gender: number): string => {
