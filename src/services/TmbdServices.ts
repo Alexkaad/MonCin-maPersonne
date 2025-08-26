@@ -129,9 +129,23 @@ export async function getPersonSingle(id:number) {
 
     try {
 
-        const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
+        const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=en-US`;
         const response = await axios.get(url);
         return response.data;
+    }catch (error) {
+
+        throw error;
+    }
+}
+
+export async function getPersonByExternalIds(id:number) {
+
+    try {
+
+        const url = `${BASE_URL}/person/${id}/external_ids?api_key=${API_KEY}`;
+        const response = await axios.get(url);
+        return response.data;
+
     }catch (error) {
 
         throw error;
@@ -146,5 +160,6 @@ module.exports = {
     getCreditByMovie,
     getTrailerMovie,
     getRecommendationMovie,
-    getPersonSingle
+    getPersonSingle,
+    getPersonByExternalIds,
 };

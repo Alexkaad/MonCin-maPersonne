@@ -1,10 +1,13 @@
 import {Request, Response} from "express";
-import {getPersonSingle} from "../services/TmbdServices";
+import {getPersonByExternalIds, getPersonSingle} from "../services/TmbdServices";
 import {Person} from "../entites/Person";
 import {mapePerson} from "../Utils/MapePerson";
+import {ExternalIds} from "../entites/ExternalIds";
+import {mapExternalIds} from "../Utils/MapExternalIds";
 
 
-export const getPersonById = async (req: Request, res: Response) => {
+export const getPersonById =
+    async (req: Request, res: Response) => {
 
     const id = parseInt(req.params.id);
 
@@ -20,6 +23,28 @@ export const getPersonById = async (req: Request, res: Response) => {
     }
 }
 
+
+export const getExternalIds =
+    async (req: Request, res: Response) => {
+
+    const id = parseInt(req.params.id);
+
+    try {
+
+     const  rawData = await getPersonByExternalIds(id);
+        const externalIds : ExternalIds   = mapExternalIds(rawData);
+        console.log( 'voici le resultat person demandé :',externalIds);
+        res.json(externalIds);
+
+    }catch (error: any) {
+
+        console.error('Erreur TMBD:', error.message);
+        res.status(500).json({error: 'Erreur lors de la récuperation des externalIds'})
+    }
+
+    }
+
 module.exports = {
-    getPersonById
+    getPersonById,
+    getExternalIds,
 }
