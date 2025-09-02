@@ -3,6 +3,7 @@ import {Film} from "../entites/BaseMovie";
 import axios, {AxiosInstance} from "axios";
 
 import {ResponsePage} from "../entites/ResponsePage";
+import {PersonByKnownFor} from "../entites/Person";
 
 
 
@@ -152,6 +153,40 @@ export async function getPersonByExternalIds(id:number) {
     }
 }
 
+export async function getPersonByCombinedCredits(name: string, page=1 ) {
+
+    try {
+        const url =
+            `${BASE_URL}/search/person?api_key=${API_KEY}&query=
+            ${encodeURIComponent(name)}&include_adult=false&language=en-US&page=${page}`;
+        const response = await axios.get(url);
+        return {
+            results: response.data.results,
+            total_pages: response.data.total_pages,
+            total_results: response.data.total_results,
+            page: response.data.page,
+            person: response.data.results[0]
+        };
+    } catch (error) {
+
+        throw error;
+    }
+}
+
+export async function getKnownFor(id: number) {
+
+    try {
+        const url = `${BASE_URL}/person/${id}/movie_credits?api_key=${API_KEY}&language=en-US`;
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+
+        throw error;
+    }
+
+}
+
+
 module.exports = {
     getPopularFilms,
     FilmById,
@@ -162,4 +197,7 @@ module.exports = {
     getRecommendationMovie,
     getPersonSingle,
     getPersonByExternalIds,
+    getPersonByCombinedCredits,
+    getKnownFor,
+
 };

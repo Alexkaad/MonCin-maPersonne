@@ -14,11 +14,3 @@ export interface CastMember {
     order: number
 }
 
-export interface MapCastMember {
-
-    id: number,
-    character: string,
-    profile_path: string | null,
-    order: number,
-    name: string,
-}

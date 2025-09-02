@@ -1,4 +1,5 @@
 import {Film} from "../entites/BaseMovie";
+import {Person} from "../entites/Person";
 
 
 export function mapFilms(data: any): {
@@ -6,6 +7,7 @@ export function mapFilms(data: any): {
     total_pages: number;
     total_results: number;
     page: number;
+    person ?: Person;
 } {
     const mappedResults: Film[] = data.results.map((film: any) => ({
         id: film.id,
@@ -27,6 +29,7 @@ export function mapFilms(data: any): {
         total_pages: data.total_pages,
         total_results: data.total_results,
         page: data.page,
+        person : data.person,
     };
 }
 

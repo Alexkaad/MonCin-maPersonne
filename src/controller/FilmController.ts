@@ -28,7 +28,8 @@ const getIndoor = async (req: Request, res: Response) => {
 };
 
 
-export const popular = async (req: Request, res: Response): Promise<void> => {
+export const popular = async (req: Request, res: Response):
+    Promise<void> => {
     const page = Math.min(parseInt(req.query.page as string) || 1, 500);
 
     try {
