@@ -3,13 +3,13 @@ import {Film} from "../entites/BaseMovie";
 import axios, {AxiosInstance} from "axios";
 
 import {ResponsePage} from "../entites/ResponsePage";
-import {PersonByKnownFor} from "../entites/Person";
 
 
 
 
-const API_KEY = process.env.TMbd_api_key;
-const BASE_URL = "https://api.themoviedb.org/3";
+
+const API_KEY = process.env.TMDB_API_KEY;
+const BASE_URL = process.env.TMDB_BASE_URL;
 
 
 const getPopularFilms = async (page=1) => {
