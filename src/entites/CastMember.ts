@@ -11,6 +11,7 @@ export interface CastMember {
     cast_id: number,
     character: string,
     credit_id:string,
-    order: number
+    order: number,
+    release_date?: string
 }
 

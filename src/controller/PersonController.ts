@@ -5,7 +5,7 @@ import {
     getPersonByExternalIds,
     getPersonSingle
 } from "../services/TmbdServices";
-import {Person, PersonByKnownFor} from "../entites/Person";
+import {Person} from "../entites/Person";
 import {mapePerson} from "../Utils/MapePerson";
 import {ExternalIds} from "../entites/ExternalIds";
 import {mapExternalIds} from "../Utils/MapExternalIds";
@@ -14,7 +14,8 @@ import {mapPersonToKnownFor} from "../Utils/mapPersonByKnownFor";
 import {CastAndCrew} from "../entites/CastAndCrew";
 import {CrewMember} from "../entites/CrewMember";
 import {CastMember} from "../entites/CastMember";
-import {filterListMovie} from "../Utils/filterListMovie";
+import {filterCastList} from "../Utils/filterListCast";
+import {filterCrewList} from "../Utils/filterListCrew";
 
 
 
@@ -95,8 +96,8 @@ export const getExternalIds =
     try {
 
         const response = await getKnownFor(id);
-        const  cast : CastMember [] = filterListMovie(response.cast).slice(0,8);
-        const crew: CrewMember [] = response.crew;
+        const  cast : CastMember [] = filterCastList(response.cast);
+        const crew: CrewMember[] = filterCrewList(response.crew);
         const castAndCrew : CastAndCrew = {
             cast,
             crew

@@ -54,6 +54,9 @@ node_modules
 .env.local
 .env*
 
+# Fichier npm build
+dist
+
 # Generated Makefile
 # (meta build system like autotools,
 # can automatically generate from config.status script
