@@ -5,21 +5,18 @@ import axios, {AxiosInstance} from "axios";
 import {ResponsePage} from "../entites/ResponsePage";
 
 
-
-
-
 const API_KEY = process.env.TMDB_API_KEY;
 const BASE_URL = process.env.TMDB_BASE_URL;
 
 
-const getPopularFilms = async (page=1) => {
+const getPopularFilms = async (page = 1) => {
     const response = await axios.get(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}&region=fr&language=fr-FR`);
     return {
 
-        results : response.data.results,
-        total_pages : response.data.total_pages,
-        total_results : response.data.total_results,
-        currentPage : response.data.page,
+        results: response.data.results,
+        total_pages: response.data.total_pages,
+        total_results: response.data.total_results,
+        currentPage: response.data.page,
     }
 }
 
@@ -27,29 +24,29 @@ const getPopularFilms = async (page=1) => {
 
 export async function upcomingMovies(page = 1): Promise<ResponsePage> {
 
-   try {
+    try {
 
-       const url = `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=fr-FR&page=${page}&region=fr`;
-       const response = await axios.get(url);
+        const url = `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=fr-FR&page=${page}&region=fr`;
+        const response = await axios.get(url);
 
-       console.log(response.data);
+        console.log(response.data);
 
-       return {
-           results: response.data.results as Film [],
-           total_pages: response.data.total_pages,
-           total_results: response.data.total_results,
-           page: response.data.page,
-       };
-   }catch (error) {
+        return {
+            results: response.data.results as Film [],
+            total_pages: response.data.total_pages,
+            total_results: response.data.total_results,
+            page: response.data.page,
+        };
+    } catch (error) {
 
-       console.error("Erreur lors de la récupération des films :", error)
-       return {
+        console.error("Erreur lors de la récupération des films :", error)
+        return {
             results: [],
             total_pages: 0,
             total_results: 0,
             page: 0,
         };
-   }
+    }
 }
 
 export async function NowPlaying(page = 1): Promise<ResponsePage> {
@@ -105,41 +102,41 @@ export async function FilmById(id: number) {
     }
 }
 
-async function getCreditByMovie(id:number) {
+export async function getCreditByMovie(id: number) {
 
     const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
     const response = await axios.get(url);
     return response.data;
 }
 
-async function getTrailerMovie(id:number) {
+export async function getTrailerMovie(id: number) {
 
     const url = `${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=fr-FR`;
     const response = await axios.get(url);
     return response.data;
 }
 
-async function getRecommendationMovie(id:number){
+export async function getRecommendationMovie(id: number) {
     const url = `${BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=fr-FR`;
     const response = await axios.get(url);
     return response.data;
 }
 
 
-export async function getPersonSingle(id:number) {
+export async function getPersonSingle(id: number) {
 
     try {
 
         const url = `${BASE_URL}/person/${id}?api_key=${API_KEY}&language=en-US`;
         const response = await axios.get(url);
         return response.data;
-    }catch (error) {
+    } catch (error) {
 
         throw error;
     }
 }
 
-export async function getPersonByExternalIds(id:number) {
+export async function getPersonByExternalIds(id: number) {
 
     try {
 
@@ -147,13 +144,13 @@ export async function getPersonByExternalIds(id:number) {
         const response = await axios.get(url);
         return response.data;
 
-    }catch (error) {
+    } catch (error) {
 
         throw error;
     }
 }
 
-export async function getPersonByCombinedCredits(name: string, page=1 ) {
+export async function getPersonByCombinedCredits(name: string, page = 1) {
 
     try {
         const url =
@@ -183,11 +180,72 @@ export async function getKnownFor(id: number) {
 
         throw error;
     }
-
-
-
 }
 
+export async function getTvSerieOnAirToday(page: number = 1): Promise<ResponsePage> {
+
+    try {
+
+        const url = `${BASE_URL}/tv/on_the_air?api_key=${API_KEY}&language=fr-FR&page=${page}`;
+        const response = await axios.get(url);
+        return {
+            results: response.data.results,
+            total_pages: response.data.total_pages,
+            total_results: response.data.total_results,
+            page: response.data.page,
+        };
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function TvById(id: number) {
+
+    const url = `${BASE_URL}/tv/${id}?api_key=${API_KEY}&language=fr-FR`;
+    try {
+
+        const response = await axios.get(url);
+
+        if (!response || !response.data) {
+            throw new Error('Réponse invalide du serveur');
+        }
+
+        return response.data;
+    } catch (error: any) {
+        // Log plus détaillé de l'erreur
+        if (error.response) {
+            console.error('Erreur de réponse:', {
+                status: error.response.status,
+                data: error.response.data,
+                headers: error.response.headers
+            });
+        } else if (error.request) {
+            console.error('Erreur de requête:', error.request);
+        } else {
+            console.error('Erreur:', error.message);
+        }
+        throw error;
+    }
+}
+
+export async function getCreditByTv(id: number) {
+
+    const url = `${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
+    const response = await axios.get(url);
+    return response.data;
+}
+
+export async function getProvidersByTv(id: number) {
+
+    const url = `${BASE_URL}/tv/${id}/watch/providers?api_key=${API_KEY}`;
+
+    try{
+        const response = await axios.get(url);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
 
 module.exports = {
     getPopularFilms,
@@ -201,5 +259,8 @@ module.exports = {
     getPersonByExternalIds,
     getPersonByCombinedCredits,
     getKnownFor,
+    getTvSerieOnAirToday,
+    getProvidersByTv,
+    TvById,
 
 };

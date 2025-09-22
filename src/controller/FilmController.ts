@@ -1,7 +1,14 @@
 import {ResponsePage} from "../entites/ResponsePage";
 
 
-const { getPopularFilms, upcomingMovies, NowPlaying, getCreditByMovie, getTrailerMovie, getRecommendationMovie} = require("../services/TmbdServices");
+const {
+    getPopularFilms,
+    upcomingMovies,
+    NowPlaying,
+    getCreditByMovie,
+    getTrailerMovie,
+    getRecommendationMovie
+} = require("../services/TmbdServices");
 
 
 import {Request, Response} from "express";
@@ -18,12 +25,12 @@ const getIndoor = async (req: Request, res: Response) => {
         const rawIndoor = await NowPlaying(page);
         const mappedData: ResponsePage = mapFilms(rawIndoor);
         if (!rawIndoor) {
-            return res.status(404).json({ error: "Aucun film trouvé" });
+            return res.status(404).json({error: "Aucun film trouvé"});
         }
         res.status(200).json(mappedData);
     } catch (error: any) {
         console.log("Erreur TMDB :", error.message);
-        res.status(500).json({ error: 'Erreur lors de la récupération des films' });
+        res.status(500).json({error: 'Erreur lors de la récupération des films'});
     }
 };
 
@@ -38,7 +45,7 @@ export const popular = async (req: Request, res: Response):
         res.status(200).json(mappedData);
     } catch (error: any) {
         console.error("Erreur TMDB :", error.message);
-        res.status(500).json({ error: "Erreur lors de la récupération des films" });
+        res.status(500).json({error: "Erreur lors de la récupération des films"});
     }
 };
 const upcoming = async (req: Request, res: Response) => {
@@ -46,11 +53,11 @@ const upcoming = async (req: Request, res: Response) => {
 
     try {
         const rowUpcoming = await upcomingMovies(page);
-        const mappedData : ResponsePage = mapFilms(rowUpcoming)// data contient { results, total_pages, total_results, currentPage }
+        const mappedData: ResponsePage = mapFilms(rowUpcoming)// data contient { results, total_pages, total_results, currentPage }
         res.status(200).json(mappedData);
     } catch (error: any) {
         console.log("Erreur TMDB :", error.message);
-        res.status(500).json({ error: 'Erreur lors de la récupération des films' });
+        res.status(500).json({error: 'Erreur lors de la récupération des films'});
     }
 }
 
@@ -58,14 +65,14 @@ const upcoming = async (req: Request, res: Response) => {
 const getFilmById = async (req: Request, res: Response) => {
 
     const id = parseInt(req.params.id);
-    console.log('ID du film demandé ',id);
+    console.log('ID du film demandé ', id);
 
     try {
         const rawData = await FilmById(id); // Donnée brute TMDb
         const film: Film = mapFilm(rawData); // Donnée typée
         console.log('Film récupéré:', film);
         res.json(film);
-    } catch (error:any) {
+    } catch (error: any) {
         console.log('Erreur TMDB:', error.message);
         res.status(500).json({
             error: 'Erreur lors de la récupération des films'
@@ -108,7 +115,7 @@ const getTrailer = async (req: Request, res: Response) => {
         const trailers = await getTrailerMovie(id);
         console.log('voici les videos :', trailers);
         res.json(trailers);
-    }catch (error:any) {
+    } catch (error: any) {
         console.error('Erreur TMDB:', error.message);
         res.status(500).json({error: 'Erreur lors de la recuperation des videos'});
     }
@@ -122,7 +129,7 @@ const getRecommandation = async (req: Request, res: Response) => {
         const recommandation = await getRecommendationMovie(id);
         console.log('recommandation :', recommandation);
         res.json(recommandation);
-    }catch (error: any) {
+    } catch (error: any) {
         console.error('Erreur TMDB:', error.message);
         res.status(500).json({error: 'Erreur lors de la recuperation des recommandations'});
     }

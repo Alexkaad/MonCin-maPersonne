@@ -1,12 +1,15 @@
 import {CastMember} from "../entites/CastMember";
 
 
+/*export function formatDate(member : CastMember) : Date{
 
-export function filterCastList(movieList : CastMember[]):CastMember[] {
+    return member.release_date?.
+}*/
 
-    return  movieList
-        .sort((a,b) => ( b.popularity - a.popularity) )
-        .sort((a,b) => ( Number(a.release_date) - Number(b.release_date)));
-
+export function filterCastList(movieList: CastMember[]): CastMember[] {
+    return movieList.sort((a, b) => {
+        const da = b.release_date ?? "";
+        const db = a.release_date ?? "";
+        return da.localeCompare(db);
+    });
 }
-

@@ -36,4 +36,7 @@ server.use("/api/films", filmsRoutes);
 const personRoutes = require('./src/routes/PersonRoutes');
 server.use("/api/persons", personRoutes);
 
+const seriesRoutes = require("./src/routes/SerieRoutes");
+server.use("/api/series", seriesRoutes);
+
 module.exports = server;

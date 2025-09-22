@@ -16,6 +16,7 @@ import {CrewMember} from "../entites/CrewMember";
 import {CastMember} from "../entites/CastMember";
 import {filterCastList} from "../Utils/filterListCast";
 import {filterCrewList} from "../Utils/filterListCrew";
+import {filterTradeCrew, groupCrewByDepartment} from "../Utils/MapeCastAndCrew";
 
 
 
@@ -81,7 +82,7 @@ export const getExternalIds =
     }
 
     export const getListMoviePerson =
-        async (req: Request, res: Response):Promise < CastAndCrew | undefined > => {
+        async (req: Request, res: Response)=> {
 
     const id = parseInt(req.params.id);
 
@@ -96,18 +97,14 @@ export const getExternalIds =
     try {
 
         const response = await getKnownFor(id);
-        const  cast : CastMember [] = filterCastList(response.cast);
-        const crew: CrewMember[] = filterCrewList(response.crew);
-        const castAndCrew : CastAndCrew = {
-            cast,
-            crew
-        }
+        const filteredCrew = filterTradeCrew(response)
+        const groupedCrew = groupCrewByDepartment(filterCrewList(filteredCrew));
 
-        console.log('voici les films de la personne :',castAndCrew);
-        res.status(200).json(castAndCrew);
-        return castAndCrew;
-
-
+        console.log('voici les films de la personne :',groupedCrew,);
+        res.status(200).json({
+            cast: response.cast,
+            crew: groupedCrew,
+        });
     }catch (error: any) {
 
         console.error('Erreur lors de la recuperation des informations Cast&Crew:', error.message);

@@ -20,6 +20,9 @@ export function mapFilms(data: any): {
         original_language: film.original_language,
         original_title: film.original_title,
         genres: film.genres,
+        firstAirDate: film.first_air_date,
+        original_name: film.original_name,
+        first_air_date: film.first_air_date,
 
         // Ajoute les champs nécessaires
     }));
@@ -46,6 +49,7 @@ export function mapFilm(raw: any): Film {
         release_date:raw.release_date,
         runtime: raw.runtime,
         tagline: raw.tagline,
-        title: raw.title
+        title: raw.title,
+
     };
 }

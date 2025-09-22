@@ -11,7 +11,7 @@
      credit_id: string;
      department: string;
      job: string
-     release_date: string;
+     release_date?: string;
 }
 
 
