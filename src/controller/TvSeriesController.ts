@@ -1,5 +1,6 @@
 import {Request,Response} from "express";
 import {
+    getCreditByTv,
     getProvidersByTv,
 
 
@@ -13,6 +14,8 @@ import {SerieTv} from "../entites/SerieTv";
 import {mapSerie, mapSeries} from "../Utils/MapSerieTv";
 import {ProviderTv} from "../entites/ProviderTv";
 import {filterFrProviders} from "../Utils/filterProvider";
+import {filterTradeCrew, groupCrewByDepartment} from "../Utils/MapeCastAndCrew";
+import {cast} from "sequelize";
 
 
 export const getOnAirToday = async(req : Request,res:Response)=>{
@@ -77,4 +80,23 @@ try {
     res.status(500).json({error: 'Erreur lors de la recuperation des fournisseurs'});
 }
 }
+
+export  const  getCreditTv =
+    async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+
+    try{
+        const credits = await getCreditByTv(id);
+        const filteredCrew = filterTradeCrew(credits);
+        const groupedCrew = groupCrewByDepartment(filteredCrew);
+        res.status(200).json({
+            cast: credits.cast,
+            crew: groupedCrew,
+        });
+
+    }catch (error: any) {
+        console.error('Erreur lors de la recuperation des informations Cast&Crew:', error.message);
+        res.status(500).json({error: 'Erreur interne serveur'});
+    }
+    }
 

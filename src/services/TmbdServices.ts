@@ -202,7 +202,7 @@ export async function getTvSerieOnAirToday(page: number = 1): Promise<ResponsePa
 export async function TvById(id: number) {
 
     const url = `${BASE_URL}/tv/${id}?api_key=${API_KEY}&language=fr-FR`;
-    try {
+    try{
 
         const response = await axios.get(url);
 
@@ -230,7 +230,7 @@ export async function TvById(id: number) {
 
 export async function getCreditByTv(id: number) {
 
-    const url = `${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}&language=fr-FR&region=fr-FR`;
+    const url = `${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}&language=fr-FR`;
     const response = await axios.get(url);
     return response.data;
 }
@@ -261,6 +261,7 @@ module.exports = {
     getKnownFor,
     getTvSerieOnAirToday,
     getProvidersByTv,
+    getCreditByTv,
     TvById,
 
 };
