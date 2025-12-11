@@ -27,3 +27,4 @@ export interface PersonByKnownFor{
     page : number
 
 }
+

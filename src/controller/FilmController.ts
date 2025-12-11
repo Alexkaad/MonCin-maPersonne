@@ -5,7 +5,7 @@ const {
     getPopularFilms,
     upcomingMovies,
     NowPlaying,
-    getCreditByMovie,
+            getCreditByMovie,
     getTrailerMovie,
     getRecommendationMovie
 } = require("../services/TmbdServices");

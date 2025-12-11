@@ -12,6 +12,6 @@ export interface CastMember {
     character: string,
     credit_id:string,
     order: number,
-    release_date?: Date | string
+    release_date?:  string
 }
 

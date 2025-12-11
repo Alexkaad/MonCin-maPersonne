@@ -14,4 +14,4 @@ router.get('/:id/credits', getCreditTv)
 router.get('/:id', getSerieById)
 
 
-module.exports = router;
+export default router;

@@ -1,9 +1,7 @@
 require('dotenv').config({path:'./.env.local'});
-const {Sequelize} = require('sequelize');
+import {Sequelize} from "sequelize";
 
-/*
-Vérification des variables d'environnement
-*/
+
 
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
 

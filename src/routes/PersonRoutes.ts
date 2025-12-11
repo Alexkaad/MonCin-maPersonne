@@ -12,4 +12,4 @@ router.get('/:id', getPersonById)
 
 
 
-module.exports = router;
+export default router;

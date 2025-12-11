@@ -12,4 +12,4 @@ router.get('/:id/videos',getTrailer );
 router.get('/:id/recommendations',getRecommandation);
 router.get('/:id', getFilmById);
 
-module.exports = router;
+export default router;

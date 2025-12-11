@@ -1,8 +1,11 @@
+
+
 require("dotenv").config({ path: "./.env.local"});
 
 import express, { Request, Response } from "express";
-const { Pool } = require("pg");
-const cors = require("cors");
+import  { Pool } from "pg";
+
+import cors from "cors";
 const server = express();
 
 const pool = new Pool({
@@ -30,13 +33,16 @@ server.get("/ping", async (req: Request, res : Response) => {
     }
 });
 
-const filmsRoutes = require("./src/routes/FilmRoutes");
-server.use("/api/films", filmsRoutes);
+import FilmRoutes from "./src/routes/FilmRoutes";
+server.use("/api/films", FilmRoutes);
 
-const personRoutes = require('./src/routes/PersonRoutes');
+import personRoutes from "./src/routes/PersonRoutes";
 server.use("/api/persons", personRoutes);
 
-const seriesRoutes = require("./src/routes/SerieRoutes");
-server.use("/api/series", seriesRoutes);
+ import serieRoutes from "./src/routes/SerieRoutes"
+server.use("/api/series", serieRoutes);
 
-module.exports = server;
+import userRoutes from "./src/routes/UserRoutes";
+server.use("/api/users", userRoutes);
+
+export default server;
